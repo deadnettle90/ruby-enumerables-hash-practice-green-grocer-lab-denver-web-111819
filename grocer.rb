@@ -36,10 +36,13 @@ end
 def apply_clearance(cart)
   cart.each do |product_name, stats|
    stats[:price] -= stats[:price] * 0.2 if stats[:clearance]
-end
-cart
+  end
+  cart
 end
 
 def checkout(cart, coupons)
-  # code here
+  hash_cart = consolidate_cart(cart)
+  applied_coupons = apply_coupons(hash_cart, coupons)
+  applied_discount = apply_clearance(applied_coupons)
+  total = applied_discount.reduce(0) { |acc, (key, value)|}
 end
